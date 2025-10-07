@@ -33,6 +33,9 @@ def create_app():
     from .routes.auth_routes import auth_bp
     app.register_blueprint(auth_bp)
 
+    from .routes.weather_routes import weather_bp
+    app.register_blueprint(weather_bp)
+
     # Ruta de prueba (opcional)
     @app.route("/")
     def home():
