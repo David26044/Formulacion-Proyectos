@@ -26,11 +26,10 @@ class RainForecast(db.Model):
     __tablename__ = "rain_forecasts"
 
     id = db.Column(db.Integer, primary_key=True)
-    forecast_time = db.Column(db.DateTime, nullable=False)  # 👈 nombre cambiado
+    forecast_time = db.Column(db.DateTime, nullable=False)  # ✅ nombre cambiado
     rain_mm = db.Column(db.Float, nullable=False)
-    risk_level = db.Column(db.Integer, nullable=False)  # 0 = verde, 1 = amarillo, 2 = rojo
+    risk_level = db.Column(db.Integer, nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
     def __repr__(self):
         return f"<RainForecast {self.forecast_time} - {self.rain_mm} mm - Risk {self.risk_level}>"
-
