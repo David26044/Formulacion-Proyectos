@@ -1,0 +1,32 @@
+<div class="auth-container">
+  <h2>Registro</h2>
+
+  <form #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)">
+    <div>
+      <label for="name">Nombre</label>
+      <input type="text" id="name" name="name" ngModel required />
+    </div>
+
+    <div>
+      <label for="email">Correo electrónico</label>
+      <input type="email" id="email" name="email" ngModel required />
+    </div>
+
+    <div>
+      <label for="password">Contraseña</label>
+      <input type="password" id="password" name="password" ngModel required />
+    </div>
+
+    <button type="submit">Registrarme</button>
+  </form>
+
+  <div *ngIf="errorMessage" class="error">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="successMessage" class="success">
+    {{ successMessage }}
+  </div>
+
+  <p class="link" (click)="goToLogin()">¿Ya tienes cuenta? Inicia sesión</p>
+</div>

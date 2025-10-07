@@ -18,3 +18,16 @@ backend/instance/
 backend/migrations/versions/__pycache__/
 backend/migrations/versions/*.pyc
 *.pyc
+
+# =========================
+# Frontend (Angular)
+# =========================
+frontend/node_modules/
+frontend/dist/
+frontend/.angular/cache/
+frontend/.angular/
+frontend/.npm/
+frontend/.env
+frontend/tmp/
+frontend/out-tsc/
+frontend/.DS_Store
