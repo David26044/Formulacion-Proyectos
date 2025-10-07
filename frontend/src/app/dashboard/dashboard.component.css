@@ -1,0 +1,40 @@
+.forecast-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.forecast-table th,
+.forecast-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+.forecast-table th {
+  background: #1e88e5;
+  color: white;
+}
+
+.green {
+  background-color: #c8e6c9;
+  color: #2e7d32;
+  font-weight: bold;
+}
+
+.yellow {
+  background-color: #fff9c4;
+  color: #f9a825;
+  font-weight: bold;
+}
+
+.red {
+  background-color: #ffcdd2;
+  color: #c62828;
+  font-weight: bold;
+}
+
+.error {
+  color: red;
+  margin-top: 1rem;
+}
