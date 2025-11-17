@@ -1,0 +1,78 @@
+<div class="public-container">
+  <header class="public-header">
+    <h1>🌧️ Estado del disipador hidráulico - La Calera</h1>
+    <p class="subtitle">
+      Panel público de monitoreo. Datos automáticos a partir de OpenWeather.
+    </p>
+  </header>
+
+  <main>
+    <div *ngIf="loading">Cargando estado del sistema...</div>
+    <div *ngIf="error" class="error">{{ error }}</div>
+
+    <section *ngIf="!loading && summary as s" class="public-grid">
+
+      <!-- Riesgo actual -->
+      <div class="card risk-card" [ngClass]="s.current_risk.color">
+        <h2>Riesgo hidráulico actual</h2>
+        <div class="risk-level">{{ s.current_risk.level }}</div>
+        <p class="risk-message">{{ s.current_risk.message }}</p>
+      </div>
+
+      <!-- Lluvia actual -->
+      <div class="card small-card">
+        <h3>Lluvia actual</h3>
+        <p class="value">{{ s.current_rain.intensity_mm_h }} mm/h</p>
+        <p class="label">{{ s.current_rain.label }}</p>
+      </div>
+
+      <!-- Próximas 6 horas -->
+      <div class="card small-card">
+        <h3>Próximas {{ s.next_hours.window_hours }} horas</h3>
+        <p class="value">{{ s.next_hours.level }}</p>
+
+        <div class="bars">
+          <span class="bar" [class.filled]="s.next_hours.bars >= 1"></span>
+          <span class="bar" [class.filled]="s.next_hours.bars >= 2"></span>
+          <span class="bar" [class.filled]="s.next_hours.bars >= 3"></span>
+        </div>
+
+        <p class="label">
+          Lluvia acumulada: {{ s.next_hours.accumulated_mm }} mm
+        </p>
+      </div>
+    </section>
+
+    <!-- Explicación y CTA -->
+    <section class="info-section">
+      <h2>¿Qué estás viendo?</h2>
+      <p>
+        Este panel resume el comportamiento hidráulico del disipador de energía
+        proyectado en La Calera. A partir de la precipitación pronosticada, el
+        sistema estima la intensidad de lluvia, la carga hídrica acumulada y el
+        nivel de riesgo para la obra.
+      </p>
+      <p>
+        El objetivo es ilustrar cómo podría funcionar un sistema de monitoreo
+        y alerta temprana para una estructura hidráulica real, combinando
+        información climática y criterios de ingeniería.
+      </p>
+
+      <div class="cta-box">
+        <p>
+          ¿Quieres recibir alertas por correo cuando el riesgo suba a
+          <strong>ALTO</strong> o <strong>MUY ALTO</strong>?
+        </p>
+        <div class="cta-buttons">
+          <button (click)="goToRegister()">Registrarme</button>
+          <button (click)="goToLogin()">Ya tengo cuenta</button>
+        </div>
+      </div>
+
+      <p class="qr-hint">
+        En la maqueta, este panel se puede consultar escaneando un código QR
+        que dirige a esta página.
+      </p>
+    </section>
+  </main>
+</div>

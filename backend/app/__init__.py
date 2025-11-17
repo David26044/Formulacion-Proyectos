@@ -36,6 +36,9 @@ def create_app():
     from .routes.weather_routes import weather_bp
     app.register_blueprint(weather_bp)
 
+    from .routes.alerts_routes import alerts_bp
+    app.register_blueprint(alerts_bp)
+
     # Ruta de prueba (opcional)
     @app.route("/")
     def home():

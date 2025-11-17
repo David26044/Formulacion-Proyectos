@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+
 import { AuthService } from '../auth/auth.service';
-import { WeatherService, RainForecast } from '../services/weather.service';
+import { WeatherService, WeatherSummary } from '../services/weather.service';
+import { ForecastHistoryResponse } from '../services/weather.service'; // si lo exportas
 
 @Component({
   selector: 'app-dashboard',
@@ -12,9 +14,13 @@ import { WeatherService, RainForecast } from '../services/weather.service';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  forecasts: RainForecast[] = [];
+  summary: WeatherSummary | null = null;
   loading = true;
   error: string | null = null;
+
+  history: ForecastHistoryResponse | null = null;
+  historyLoading = true;
+  historyError: string | null = null;
 
   constructor(
     private authService: AuthService,
@@ -23,15 +29,29 @@ export class DashboardComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.weatherService.getForecasts().subscribe({
+    // Resumen
+    this.weatherService.getSummary().subscribe({
       next: (data) => {
-        this.forecasts = data;
+        this.summary = data;
         this.loading = false;
       },
       error: (err) => {
-        this.error = 'Error al cargar pronósticos';
         console.error(err);
+        this.error = 'Error al cargar el resumen de clima';
         this.loading = false;
+      }
+    });
+
+    // Historial / detalle de pronósticos
+    this.weatherService.getHistory().subscribe({
+      next: (data) => {
+        this.history = data;
+        this.historyLoading = false;
+      },
+      error: (err) => {
+        console.error(err);
+        this.historyError = 'Error al cargar el historial de pronósticos';
+        this.historyLoading = false;
       }
     });
   }
@@ -41,11 +61,7 @@ export class DashboardComponent implements OnInit {
     this.router.navigate(['/auth/login']);
   }
 
-  getRiskClass(level: number): string {
-    switch (level) {
-      case 1: return 'yellow';
-      case 2: return 'red';
-      default: return 'green';
-    }
+  goToAlerts() {
+    this.router.navigate(['/alerts']);
   }
 }
