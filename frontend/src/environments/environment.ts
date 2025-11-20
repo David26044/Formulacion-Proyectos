@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:5000'  // Flask corre ahí
+  apiUrl: 'https://formulacion-proyectos.onrender.com'  // Flask corre ahí
 };
