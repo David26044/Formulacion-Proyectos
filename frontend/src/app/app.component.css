@@ -1,4 +1,19 @@
-h1 {
-  text-align: center;
-  margin-top: 20px;
+/* Importamos una fuente moderna */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+:root {
+  --bg-dark: #0f172a;       /* Fondo muy oscuro (casi negro azulado) */
+  --card-dark: #1e293b;     /* Fondo de la tarjeta (un poco más claro) */
+  --input-bg: #334155;      /* Fondo de los inputs */
+  --primary: #3b82f6;       /* Azul brillante principal */
+  --primary-hover: #2563eb; /* Azul más oscuro para hover */
+  --text-main: #f8fafc;     /* Texto blanco casi puro */
+  --text-muted: #94a3b8;    /* Texto gris claro para etiquetas */
+}
+
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--bg-dark);
+  color: var(--text-main);
 }

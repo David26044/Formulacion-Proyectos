@@ -1,78 +1,83 @@
 <div class="public-container">
   <header class="public-header">
-    <h1>🌧️ Estado del disipador hidráulico - La Calera</h1>
-    <p class="subtitle">
-      Panel público de monitoreo. Datos automáticos a partir de OpenWeather.
-    </p>
+    <div class="header-content">
+      <h1>🌧️ Estado del Disipador</h1>
+      <p class="subtitle">Monitoreo en tiempo real | La Calera</p>
+    </div>
+    <div class="live-indicator">
+      <span class="dot"></span> Actualizado
+    </div>
   </header>
 
   <main>
-    <div *ngIf="loading">Cargando estado del sistema...</div>
-    <div *ngIf="error" class="error">{{ error }}</div>
+    <div *ngIf="loading" class="loader">
+        <div class="spinner"></div>
+        <p>Analizando datos hidráulicos...</p>
+    </div>
+    <div *ngIf="error" class="error-box error-message">{{ error }}</div>
 
-    <section *ngIf="!loading && summary as s" class="public-grid">
+    <section *ngIf="!loading && summary as s" class="grid-layout">
 
-      <!-- Riesgo actual -->
-      <div class="card risk-card" [ngClass]="s.current_risk.color">
-        <h2>Riesgo hidráulico actual</h2>
-        <div class="risk-level">{{ s.current_risk.level }}</div>
-        <p class="risk-message">{{ s.current_risk.message }}</p>
+      <div class="card risk-main-card" [ngClass]="s.current_risk.level.toLowerCase()">
+        <div class="risk-content">
+          <span class="card-label">Nivel de Riesgo Actual</span>
+          <div class="risk-title">{{ s.current_risk.level }}</div>
+          <p class="risk-desc">{{ s.current_risk.message }}</p>
+        </div>
+        <div class="risk-icon-bg">⚠️</div>
       </div>
 
-      <!-- Lluvia actual -->
-      <div class="card small-card">
-        <h3>Lluvia actual</h3>
-        <p class="value">{{ s.current_rain.intensity_mm_h }} mm/h</p>
-        <p class="label">{{ s.current_rain.label }}</p>
-      </div>
-
-      <!-- Próximas 6 horas -->
-      <div class="card small-card">
-        <h3>Próximas {{ s.next_hours.window_hours }} horas</h3>
-        <p class="value">{{ s.next_hours.level }}</p>
-
-        <div class="bars">
-          <span class="bar" [class.filled]="s.next_hours.bars >= 1"></span>
-          <span class="bar" [class.filled]="s.next_hours.bars >= 2"></span>
-          <span class="bar" [class.filled]="s.next_hours.bars >= 3"></span>
+      <div class="side-cards">
+        
+        <div class="card info-card">
+          <div class="icon-circle">💧</div>
+          <div>
+            <h3>Lluvia Instantánea</h3>
+            <p class="value">{{ s.current_rain.intensity_mm_h }} <small>mm/h</small></p>
+            <span class="tag">{{ s.current_rain.label }}</span>
+          </div>
         </div>
 
-        <p class="label">
-          Lluvia acumulada: {{ s.next_hours.accumulated_mm }} mm
-        </p>
+        <div class="card info-card">
+          <div class="icon-circle">☁️</div>
+          <div>
+            <h3>Próximas {{ s.next_hours.window_hours }} Horas</h3>
+            <p class="forecast-level">{{ s.next_hours.level }}</p>
+            
+            <div class="gauge-container">
+              <div class="gauge-bar" [class.active]="s.next_hours.bars >= 1"></div>
+              <div class="gauge-bar" [class.active]="s.next_hours.bars >= 2"></div>
+              <div class="gauge-bar" [class.active]="s.next_hours.bars >= 3"></div>
+            </div>
+            <p class="forecast-accum">Acumulado estimado: <strong>{{ s.next_hours.accumulated_mm }} mm</strong></p>
+          </div>
+        </div>
       </div>
+
     </section>
 
-    <!-- Explicación y CTA -->
     <section class="info-section">
-      <h2>¿Qué estás viendo?</h2>
-      <p>
-        Este panel resume el comportamiento hidráulico del disipador de energía
-        proyectado en La Calera. A partir de la precipitación pronosticada, el
-        sistema estima la intensidad de lluvia, la carga hídrica acumulada y el
-        nivel de riesgo para la obra.
-      </p>
-      <p>
-        El objetivo es ilustrar cómo podría funcionar un sistema de monitoreo
-        y alerta temprana para una estructura hidráulica real, combinando
-        información climática y criterios de ingeniería.
-      </p>
+      <div class="info-grid">
+        <div class="info-text">
+          <h2>💡 ¿Qué significa este panel?</h2>
+          <p>
+            Este sistema monitorea la carga hídrica sobre la estructura de disipación de energía en La Calera. 
+            Utilizamos datos satelitales para prevenir desbordamientos y alertar a la comunidad.
+          </p>
+          <div class="methodology-link">
+            <a routerLink="/metodologia">📖 Ver Metodología de Ingeniería</a>
+          </div>
+        </div>
 
-      <div class="cta-box">
-        <p>
-          ¿Quieres recibir alertas por correo cuando el riesgo suba a
-          <strong>ALTO</strong> o <strong>MUY ALTO</strong>?
-        </p>
-        <div class="cta-buttons">
-          <button (click)="goToRegister()">Registrarme</button>
-          <button (click)="goToLogin()">Ya tengo cuenta</button>
+        <div class="cta-card">
+          <h3>🔔 Alertas Tempranas</h3>
+          <p>Recibe notificaciones automáticas si el riesgo sube a nivel ALTO.</p>
+          <div class="cta-actions">
+            <button class="btn-primary" (click)="goToRegister()">Crear Cuenta</button>
+            <button class="btn-outline" (click)="goToLogin()">Ingresar</button>
+          </div>
         </div>
       </div>
-
-      <p class="qr-hint">
-        En la maqueta, este panel se puede consultar escaneando un código QR
-        que dirige a esta página.
-      </p>
     </section>
   </main>
 </div>

@@ -3,11 +3,17 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthGuard } from './auth/auth.guard';
 import { AlertsSettingsComponent } from './alerts/alerts-settings.component';
 import { PublicPanelComponent } from './public-panel/public-panel.component';
+import { MetodologiaComponent } from './metodologia/metodologia.component';
+
 
 export const routes: Routes = [
   {
     path: 'panel-publico',
     component: PublicPanelComponent
+  },
+  {
+    path: 'metodologia',
+    component: MetodologiaComponent
   },
   {
     path: 'auth',

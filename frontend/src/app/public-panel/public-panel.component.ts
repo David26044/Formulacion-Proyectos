@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router'; // 👈 agrega RouterModule acá
 import { WeatherService, WeatherSummary } from '../services/weather.service';
 
 @Component({
   selector: 'app-public-panel',
   standalone: true,
-  imports: [CommonModule],
+  imports: [
+    CommonModule,
+    RouterModule           // 👈 y agrega RouterModule en imports
+  ],
   templateUrl: './public-panel.component.html',
   styleUrls: ['./public-panel.component.css']
 })

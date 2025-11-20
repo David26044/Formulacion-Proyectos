@@ -1,1 +1,71 @@
-/* You can add global styles to this file, and also import other style files */
+/* En src/styles.css */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;800&display=swap');
+
+/* Definición de Variables CSS para el tema oscuro */
+:root {
+  --bg-primary: #0f172a;          /* Fondo principal muy oscuro (casi negro azulado) */
+  --bg-secondary: #1e293b;        /* Fondo para tarjetas, paneles, etc. (un poco más claro) */
+  --bg-tertiary: #334155;         /* Fondo para inputs, elementos interactivos */
+  --text-light: #e2e8f0;          /* Texto principal claro */
+  --text-muted: #94a3b8;          /* Texto secundario, descripciones */
+  --accent-blue: #3b82f6;         /* Color de acento azul brillante */
+  --accent-blue-hover: #2563eb;   /* Color de acento azul para hover */
+  --border-color: rgba(255, 255, 255, 0.1); /* Bordes sutiles */
+  --shadow-dark: 0 10px 30px rgba(0, 0, 0, 0.6); /* Sombra más pronunciada para tema oscuro */
+
+  /* Colores de riesgo adaptados al tema oscuro */
+  --risk-green: #22c55e;
+  --risk-yellow: #facc15;
+  --risk-orange: #f97316;
+  --risk-red: #ef4444;
+
+  /* Fondos de riesgo para tarjetas */
+  --risk-green-bg: rgba(34, 197, 94, 0.15); /* verde suave */
+  --risk-yellow-bg: rgba(250, 204, 21, 0.15); /* amarillo suave */
+  --risk-orange-bg: rgba(249, 115, 22, 0.15); /* naranja suave */
+  --risk-red-bg: rgba(239, 68, 68, 0.15); /* rojo suave */
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg-primary);
+  margin: 0;
+  color: var(--text-light); /* Texto por defecto claro */
+  line-height: 1.6;
+}
+
+/* Estilos básicos para links y botones que se usen globalmente */
+a {
+  color: var(--accent-blue);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--accent-blue-hover);
+  text-decoration: underline;
+}
+
+button {
+  font-family: 'Inter', sans-serif;
+}
+
+/* Clases de utilidad */
+.error-message, .alert.error {
+  color: var(--risk-red);
+  background-color: var(--risk-red-bg);
+  border: 1px solid var(--risk-red);
+  padding: 10px;
+  border-radius: 8px;
+  text-align: center;
+  margin-top: 15px;
+}
+.success-message, .alert.success {
+  color: var(--risk-green);
+  background-color: var(--risk-green-bg);
+  border: 1px solid var(--risk-green);
+  padding: 10px;
+  border-radius: 8px;
+  text-align: center;
+  margin-top: 15px;
+}

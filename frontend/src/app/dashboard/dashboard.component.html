@@ -1,70 +1,109 @@
 <div class="dashboard-container">
   <header class="dashboard-header">
-    <h1>🌦️ Panel de Control - La Calera</h1>
-    <button (click)="logout()" class="logout-btn">Cerrar sesión</button>
+    <div class="brand">
+      <h1>🌦️ Panel de Control</h1>
+      <span class="location-badge">La Calera</span>
+    </div>
+    <button (click)="logout()" class="logout-btn">
+      <span>Cerrar sesión</span>
+      <i class="icon-logout"></i> </button>
   </header>
 
   <main class="dashboard-content">
-    <h2>Resumen hidráulico actual</h2>
+    <section class="status-grid">
+      <div class="section-title-full">
+        <h2>Resumen Hidráulico Actual</h2>
+      </div>
 
-    <div *ngIf="loading">Cargando pronóstico resumido...</div>
-    <div *ngIf="error" class="error">{{ error }}</div>
+      <div *ngIf="loading" class="loading-state">Cargando pronóstico...</div>
+      <div *ngIf="error" class="error-banner">{{ error }}</div>
 
-    <section *ngIf="!loading && summary as s" class="summary-section">
-      <!-- Aquí lo que ya tenías: riesgo actual, lluvia actual, próximas 6h -->
-      <p><strong>Riesgo actual:</strong> {{ s.current_risk.level }} - {{ s.current_risk.message }}</p>
-      <p><strong>Lluvia actual:</strong> {{ s.current_rain.intensity_mm_h }} mm/h ({{ s.current_rain.label }})</p>
-      <p><strong>Próximas {{ s.next_hours.window_hours }} horas:</strong> {{ s.next_hours.level }} — Lluvia acumulada: {{ s.next_hours.accumulated_mm }} mm</p>
-    </section>
-
-    <button class="alertas-btn" (click)="goToAlerts()">
-      Configurar alertas por correo
-    </button>
-
-    <!-- NUEVA SECCIÓN: historial / detalle -->
-    <section class="history-section">
-      <h2>Detalle temporal del evento de lluvia</h2>
-
-      <div *ngIf="historyLoading">Cargando historial de pronósticos...</div>
-      <div *ngIf="historyError" class="error">{{ historyError }}</div>
-
-      <div *ngIf="!historyLoading && history as h">
-
-        <div class="history-summary">
-          <p>
-            <strong>Máxima intensidad esperada:</strong>
-            {{ h.summary.max_intensity_mm_h }} mm/h
-            <span *ngIf="h.summary.max_intensity_time">
-              (alrededor de {{ h.summary.max_intensity_time | date:'short' }})
-            </span>
-          </p>
-          <p><strong>Lluvia acumulada 24h:</strong> {{ h.summary.total_24h_mm }} mm</p>
-          <p><strong>Lluvia acumulada 48h:</strong> {{ h.summary.total_48h_mm }} mm</p>
-          <p class="history-note">
-            Estos valores permiten evaluar la carga hídrica que deberá disipar la estructura
-            y la posible saturación del suelo alrededor del disipador.
-          </p>
+      <ng-container *ngIf="!loading && summary as s">
+        <div class="stat-card risk-highlight" [ngClass]="'risk-' + s.current_risk.level.toLowerCase()">
+          <div class="card-icon">⚠️</div>
+          <div class="card-info">
+            <h3>Riesgo Actual</h3>
+            <p class="big-stat">{{ s.current_risk.level }}</p>
+            <span class="sub-stat">{{ s.current_risk.message }}</span>
+          </div>
         </div>
 
-        <table class="history-table">
-          <thead>
-            <tr>
-              <th>Fecha y hora</th>
-              <th>Lluvia (3h) [mm]</th>
-              <th>Intensidad [mm/h]</th>
-              <th>Riesgo por franja</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let e of h.entries">
-              <td>{{ e.time | date:'short' }}</td>
-              <td>{{ e.rain_3h_mm }}</td>
-              <td>{{ e.intensity_mm_h }}</td>
-              <td>{{ e.slot_risk }}</td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="stat-card">
+          <div class="card-icon">🌧️</div>
+          <div class="card-info">
+            <h3>Intensidad Lluvia</h3>
+            <p class="big-stat">{{ s.current_rain.intensity_mm_h }} <small>mm/h</small></p>
+            <span class="sub-stat">{{ s.current_rain.label }}</span>
+          </div>
+        </div>
 
+        <div class="stat-card">
+          <div class="card-icon">⏱️</div>
+          <div class="card-info">
+            <h3>Próximas {{ s.next_hours.window_hours }}h</h3>
+            <p class="big-stat">{{ s.next_hours.accumulated_mm }} <small>mm</small></p>
+            <span class="sub-stat">Nivel estimado: {{ s.next_hours.level }}</span>
+          </div>
+        </div>
+      </ng-container>
+    </section>
+
+    <div class="actions-row">
+      <button class="alertas-btn" (click)="goToAlerts()">
+        🔔 Configurar alertas por correo
+      </button>
+    </div>
+
+    <section class="history-section card-panel">
+      <div class="panel-header">
+        <h2>Detalle del Evento</h2>
+        <p class="panel-subtitle">Análisis temporal de carga hídrica</p>
+      </div>
+
+      <div *ngIf="historyLoading" class="loading-state">Cargando historial...</div>
+      <div *ngIf="historyError" class="error-banner">{{ historyError }}</div>
+
+      <div *ngIf="!historyLoading && history as h">
+        <div class="history-stats-row">
+          <div class="mini-stat">
+            <span class="label">Máx. Intensidad</span>
+            <span class="value">{{ h.summary.max_intensity_mm_h }} mm/h</span>
+            <span class="time" *ngIf="h.summary.max_intensity_time">{{ h.summary.max_intensity_time | date:'shortTime' }}</span>
+          </div>
+          <div class="mini-stat">
+            <span class="label">Acumulado 24h</span>
+            <span class="value">{{ h.summary.total_24h_mm }} mm</span>
+          </div>
+          <div class="mini-stat">
+            <span class="label">Acumulado 48h</span>
+            <span class="value">{{ h.summary.total_48h_mm }} mm</span>
+          </div>
+        </div>
+        
+        <p class="history-note">
+          ℹ️ Estos valores permiten evaluar la posible saturación del suelo alrededor del disipador.
+        </p>
+
+        <div class="table-responsive">
+          <table class="history-table">
+            <thead>
+              <tr>
+                <th>Hora</th>
+                <th>Lluvia (3h)</th>
+                <th>Intensidad</th>
+                <th>Riesgo</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let e of h.entries">
+                <td><strong>{{ e.time | date:'shortTime' }}</strong> <br> <small>{{ e.time | date:'MMM d' }}</small></td>
+                <td>{{ e.rain_3h_mm }} mm</td>
+                <td>{{ e.intensity_mm_h }} mm/h</td>
+                <td><span class="badge" [ngClass]="'badge-' + e.slot_risk.toLowerCase()">{{ e.slot_risk }}</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </section>
   </main>

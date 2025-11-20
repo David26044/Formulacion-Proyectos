@@ -1,32 +1,50 @@
-<div class="auth-container">
-  <h2>Registro</h2>
-
-  <form #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)">
-    <div>
-      <label for="name">Nombre</label>
-      <input type="text" id="name" name="name" ngModel required />
+<div class="auth-wrapper">
+  <div class="auth-card">
+    
+    <div class="auth-header">
+      <div class="logo-icon">📝</div>
+      <h2>Crear Cuenta</h2>
+      <p class="subtitle">Únete al proyecto La Calera</p>
     </div>
 
-    <div>
-      <label for="email">Correo electrónico</label>
-      <input type="email" id="email" name="email" ngModel required />
+    <form #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)">
+      
+      <div class="form-group">
+        <label for="name">Nombre completo</label>
+        <div class="input-wrapper">
+          <input type="text" id="name" name="name" ngModel required placeholder="Tu nombre" />
+          <span class="input-icon">👤</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Correo electrónico</label>
+        <div class="input-wrapper">
+          <input type="email" id="email" name="email" ngModel required placeholder="usuario@ejemplo.com" />
+          <span class="input-icon">✉️</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Contraseña</label>
+        <div class="input-wrapper">
+          <input type="password" id="password" name="password" ngModel required placeholder="Crea una contraseña" />
+          <span class="input-icon">🔒</span>
+        </div>
+      </div>
+
+      <button type="submit" class="btn-submit" [disabled]="!registerForm.valid">
+        Registrarme
+      </button>
+    </form>
+
+    <div *ngIf="errorMessage" class="alert error">{{ errorMessage }}</div>
+    <div *ngIf="successMessage" class="alert success">{{ successMessage }}</div>
+
+    <div class="auth-footer">
+      <p>¿Ya tienes cuenta?</p>
+      <a (click)="goToLogin()" class="link">Inicia sesión</a>
     </div>
 
-    <div>
-      <label for="password">Contraseña</label>
-      <input type="password" id="password" name="password" ngModel required />
-    </div>
-
-    <button type="submit">Registrarme</button>
-  </form>
-
-  <div *ngIf="errorMessage" class="error">
-    {{ errorMessage }}
   </div>
-
-  <div *ngIf="successMessage" class="success">
-    {{ successMessage }}
-  </div>
-
-  <p class="link" (click)="goToLogin()">¿Ya tienes cuenta? Inicia sesión</p>
 </div>

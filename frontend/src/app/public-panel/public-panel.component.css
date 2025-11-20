@@ -1,164 +1,166 @@
 .public-container {
   max-width: 900px;
-  margin: 24px auto;
-  padding: 16px;
-  font-family: Arial, sans-serif;
+  margin: 0 auto;
+  padding: 20px;
 }
 
-.public-header h1 {
-  margin: 0;
-  font-size: 1.8rem;
-}
-
-.subtitle {
-  margin-top: 4px;
-  color: #555;
-  font-size: 0.95rem;
-}
-
-.error {
-  color: #d32f2f;
-  margin-top: 12px;
-}
-
-.public-grid {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  grid-template-rows: auto auto;
-  gap: 16px;
-  margin-top: 16px;
-}
-
-.card {
-  background: #ffffff;
-  border-radius: 12px;
-  padding: 16px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
-}
-
-.risk-card {
-  grid-column: 1 / 2;
-  grid-row: 1 / 3;
-}
-
-.small-card {
-  grid-column: 2 / 3;
-}
-
-.risk-card h2 {
-  margin-top: 0;
-}
-
-.risk-level {
-  font-size: 2.2rem;
-  font-weight: bold;
-  margin: 10px 0;
-}
-
-.risk-message {
-  font-size: 0.98rem;
-}
-
-/* Colores de riesgo */
-.risk-card.green {
-  background-color: #c8e6c9;
-  color: #1b5e20;
-}
-
-.risk-card.yellow {
-  background-color: #fff9c4;
-  color: #f57f17;
-}
-
-.risk-card.orange {
-  background-color: #ffe0b2;
-  color: #e65100;
-}
-
-.risk-card.red {
-  background-color: #ffcdd2;
-  color: #b71c1c;
-}
-
-/* Tarjetas pequeñas */
-.small-card h3 {
-  margin-top: 0;
-}
-
-.value {
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin: 8px 0;
-}
-
-.label {
-  font-size: 0.95rem;
-}
-
-/* Barras próximas horas */
-.bars {
+/* Header */
+.public-header {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 15px;
+}
+
+.public-header h1 { margin: 0; font-size: 1.5rem; color: var(--text-light); }
+.subtitle { margin: 5px 0 0; color: var(--text-muted); font-size: 0.9rem; }
+
+/* Indicador En vivo */
+.live-indicator {
+  background: var(--risk-green-bg);
+  color: var(--risk-green);
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
   gap: 6px;
-  margin: 8px 0;
+  border: 1px solid var(--risk-green);
+}
+.dot {
+  width: 8px; height: 8px; background: var(--risk-green); border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.4); }
+  70% { box-shadow: 0 0 0 6px rgba(74, 222, 128, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0); }
 }
 
-.bar {
-  width: 24px;
-  height: 10px;
-  border-radius: 4px;
-  border: 1px solid #999;
-  background-color: #eee;
+/* Layout Grid */
+.grid-layout {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 20px;
+  margin-bottom: 40px;
 }
 
-.bar.filled {
-  background-color: #1976d2;
+/* Card Base */
+.card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 25px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-dark);
 }
 
-/* Sección de info */
-.info-section {
-  margin-top: 24px;
-}
-
-.info-section h2 {
-  margin-bottom: 8px;
-}
-
-.info-section p {
-  margin-bottom: 8px;
-  font-size: 0.97rem;
-  color: #444;
-}
-
-/* Caja de call-to-action */
-.cta-box {
-  margin-top: 12px;
-  padding: 12px;
-  border-radius: 10px;
-  background-color: #e3f2fd;
-}
-
-.cta-buttons {
-  margin-top: 8px;
+/* Card Riesgo Principal */
+.risk-main-card {
   display: flex;
-  gap: 8px;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 200px;
+  color: #fff; /* Siempre blanco aquí para contraste con gradiente */
 }
 
-.cta-buttons button {
+/* Gradientes lindos para el riesgo */
+.risk-main-card.bajo { background: linear-gradient(135deg, #166534 0%, #15803d 100%); }
+.risk-main-card.medio { background: linear-gradient(135deg, #854d0e 0%, #a16207 100%); }
+.risk-main-card.alto { background: linear-gradient(135deg, #9a3412 0%, #c2410c 100%); }
+.risk-main-card.muy_alto { background: linear-gradient(135deg, #991b1b 0%, #b91c1c 100%); }
+
+.card-label { text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px; opacity: 0.9; }
+.risk-title { font-size: 2.5rem; font-weight: 800; margin: 10px 0; line-height: 1; }
+.risk-desc { font-size: 1.1rem; opacity: 0.95; }
+.risk-bg-icon {
+  position: absolute; right: -20px; bottom: -30px; font-size: 8rem; opacity: 0.1; pointer-events: none;
+}
+
+/* Cards Info */
+.side-cards { display: flex; flex-direction: column; gap: 20px; }
+.info-card { display: flex; align-items: flex-start; gap: 15px; }
+
+.icon-box {
+  background: var(--bg-primary);
+  width: 45px; height: 45px;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.2rem;
+}
+
+.info-card h3 { margin: 0 0 5px; font-size: 0.9rem; color: var(--text-muted); }
+.info-card .value { font-size: 1.5rem; font-weight: 700; color: var(--text-light); margin: 0; }
+.tag { font-size: 0.75rem; color: var(--accent-blue); background: rgba(59, 130, 246, 0.1); padding: 2px 6px; border-radius: 4px; }
+
+/* Barras de pronóstico */
+.gauge-bar-container { display: flex; gap: 4px; margin: 8px 0; }
+.bar { height: 6px; flex: 1; background: var(--bg-tertiary); border-radius: 3px; }
+.bar.active { background: var(--accent-blue); }
+.forecast-level { font-weight: 700; color: var(--text-light); margin: 0; }
+.forecast-accum { font-size: 0.8rem; color: var(--text-muted); margin-top: 5px; }
+
+/* Sección Info (Aquí estaba el problema antes) */
+.info-section {
+  border-top: 1px solid var(--border-color);
+  padding-top: 30px;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Dos columnas */
+  gap: 40px;
+  align-items: center;
+}
+
+.info-text h2 { font-size: 1.2rem; color: var(--text-light); margin-top: 0; }
+.info-text p { line-height: 1.6; color: var(--text-muted); margin-bottom: 15px; }
+.learn-more { color: var(--accent-blue); font-weight: 600; }
+
+/* CTA Card (Llamada a la acción) */
+.cta-card {
+  background: var(--bg-tertiary); /* Fondo ligeramente distinto */
+  padding: 25px;
+  border-radius: 12px;
+  text-align: center;
+  border: 1px solid var(--border-color);
+}
+
+.cta-card h3 { margin-top: 0; color: var(--text-light); }
+.cta-card p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px; }
+
+.cta-buttons { display: flex; gap: 10px; justify-content: center; }
+
+.btn-primary {
+  background: var(--accent-blue);
+  color: white;
   border: none;
-  border-radius: 6px;
-  padding: 8px 16px;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
   cursor: pointer;
-  background-color: #1976d2;
-  color: #fff;
 }
+.btn-primary:hover { background: var(--accent-blue-hover); }
 
-.cta-buttons button:hover {
-  background-color: #1565c0;
+.btn-outline {
+  background: transparent;
+  border: 1px solid var(--accent-blue);
+  color: var(--accent-blue);
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
 }
+.btn-outline:hover { background: rgba(59, 130, 246, 0.1); }
 
-.qr-hint {
-  margin-top: 12px;
-  font-size: 0.9rem;
-  color: #666;
-  font-style: italic;
+/* Responsive Final */
+@media (max-width: 768px) {
+  .grid-layout { grid-template-columns: 1fr; }
+  .info-grid { grid-template-columns: 1fr; gap: 30px; }
+  .public-header { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .risk-title { font-size: 2rem; }
 }

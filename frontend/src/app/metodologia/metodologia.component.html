@@ -1,0 +1,108 @@
+<div class="metodologia-container">
+  <header class="metodologia-header">
+    <h1>🔬 Metodología de Ingeniería</h1>
+    <p class="intro">
+      Explicación técnica del modelo de datos, transformación de variables y
+      cálculo de riesgo hidráulico para el disipador.
+    </p>
+  </header>
+
+  <section class="doc-section">
+    <div class="section-icon">📡</div>
+    <div class="section-content">
+      <h2>1. Adquisición de Datos (OpenWeather)</h2>
+      <p>
+        El sistema obtiene datos meteorológicos en tiempo real para las coordenadas
+        geográficas del proyecto en <strong>La Calera</strong>. La API entrega pronósticos
+        en intervalos de 3 horas (3-hour step).
+      </p> 
+
+      <div class="diagram-container">
+        <div class="node">☁️ OpenWeather API</div>
+        <div class="arrow">➜</div>
+        <div class="node">🖥️ Backend (Flask)</div>
+        <div class="arrow">➜</div>
+        <div class="node">🗄️ DB (PostgreSQL)</div>
+        <div class="arrow">➜</div>
+        <div class="node active">📊 Panel Angular</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="doc-section">
+    <div class="section-icon">📐</div>
+    <div class="section-content">
+      <h2>2. Intensidad de Lluvia (mm/h)</h2>
+      <p>
+        La API entrega precipitación acumulada ($mm/3h$). Para fines hidráulicos,
+        convertimos esto a intensidad horaria media:
+      </p>
+      
+      <div class="formula-box">
+        <code>Intensidad (I) = Rain_3h / 3</code>
+      </div>
+      
+      <p>
+        Este valor $I$ determina la energía cinética inmediata del agua que impacta
+        la estructura del disipador tipo escalera.
+      </p>
+    </div>
+  </section>
+
+  <section class="doc-section">
+    <div class="section-icon">💧</div>
+    <div class="section-content">
+      <h2>3. Análisis de Saturación (24h y 48h)</h2>
+      <p>
+        El riesgo no depende solo de la lluvia actual, sino de la saturación previa
+        del terreno. Calculamos ventanas móviles:
+      </p> 
+      <ul class="tech-list">
+        <li><strong>P24h:</strong> Sumatoria de los próximos 8 bloques de pronóstico.</li>
+        <li><strong>P48h:</strong> Sumatoria de los próximos 16 bloques.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="doc-section">
+    <div class="section-icon">🚦</div>
+    <div class="section-content">
+      <h2>4. Matriz de Riesgo Hidráulico</h2>
+      <p>
+        El sistema evalúa las tres variables ($I$, $P24h$, $P48h$) y asigna un nivel de riesgo
+        cualitativo basado en umbrales de seguridad:
+      </p> 
+
+[Image of risk matrix diagram colorful]
+
+
+      <div class="risk-grid">
+        <div class="risk-item bajo">
+          <span class="badge">BAJO</span>
+          <p>Condiciones normales. Flujo estable dentro de la capacidad de diseño.</p>
+        </div>
+        <div class="risk-item medio">
+          <span class="badge">MODERADO</span>
+          <p>Aumento de caudal. El disipador funciona, pero requiere monitoreo.</p>
+        </div>
+        <div class="risk-item alto">
+          <span class="badge">ALTO</span>
+          <p>Lluvia intensa. Riesgo de erosión en taludes adyacentes.</p>
+        </div>
+        <div class="risk-item muy-alto">
+          <span class="badge">MUY ALTO</span>
+          <p>Capacidad crítica. Posible desbordamiento o falla estructural.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="doc-section context-section">
+    <h2>🏗️ Relación con el Proyecto</h2>
+    <p>
+      Esta herramienta digital complementa la maqueta física, demostrando cómo
+      la ingeniería civil moderna integra <strong>IoT (Internet of Things)</strong>
+      y análisis de datos para la prevención de desastres.
+    </p>
+  </section>
+</div>

@@ -1,70 +1,231 @@
-.alerts-container {
+/* Contenedor principal centrado */
+.alerts-wrapper {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  /* Usamos el mismo fondo que el login/registro si quieres, o el background global */
+  background-color: var(--bg-primary); 
+}
+
+/* Tarjeta */
+.alerts-card {
+  background-color: var(--bg-secondary);
+  width: 100%;
   max-width: 500px;
-  margin: 20px auto;
-  padding: 16px;
-  border-radius: 12px;
-  background: #ffffff;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
-  font-family: Arial, sans-serif;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: var(--shadow-dark);
+  border: 1px solid var(--border-color);
 }
 
-.alerts-container h2 {
-  margin-top: 0;
-  margin-bottom: 16px;
+/* Header */
+.card-header {
+  text-align: center;
+  margin-bottom: 25px;
 }
 
+.header-icon {
+  font-size: 2.5rem;
+  background: var(--bg-primary);
+  width: 70px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  margin: 0 auto 15px;
+  border: 1px solid var(--border-color);
+}
+
+.card-header h2 {
+  margin: 0;
+  color: var(--text-light);
+  font-size: 1.5rem;
+}
+
+.subtitle {
+  margin: 5px 0 0;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+/* Inputs (Reutilizando estilo moderno) */
 .form-group {
-  margin-bottom: 12px;
+  margin-bottom: 20px;
 }
 
 label {
   display: block;
+  margin-bottom: 8px;
+  color: var(--text-muted);
+  font-size: 0.9rem;
   font-weight: 600;
-  margin-bottom: 4px;
+}
+
+.input-wrapper {
+  position: relative;
 }
 
 input[type="email"] {
   width: 100%;
-  padding: 8px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
+  padding: 12px 40px 12px 16px;
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  color: var(--text-light);
+  font-size: 1rem;
   box-sizing: border-box;
+  transition: 0.2s;
 }
 
-.checkbox-group label {
+input[type="email"]:focus {
+  outline: none;
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+.input-icon {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0.5;
+}
+
+/* Separador visual */
+.divider {
+  height: 1px;
+  background: var(--border-color);
+  margin: 25px 0;
+}
+
+.section-label {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+  margin-bottom: 15px;
+}
+
+/* Opciones (Checkboxes estilizados como tarjetas) */
+.options-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 25px;
+}
+
+.option-row {
   display: flex;
   align-items: center;
-  font-weight: normal;
+  background: var(--bg-primary); /* Fondo oscuro por defecto */
+  padding: 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  border: 1px solid var(--border-color);
+  transition: all 0.2s ease;
 }
 
-.checkbox-group input[type="checkbox"] {
-  margin-right: 8px;
+/* Efecto Hover y Checked */
+.option-row:hover {
+  border-color: var(--accent-blue);
 }
 
-button {
-  margin-top: 8px;
-  padding: 8px 16px;
-  border: none;
-  border-radius: 6px;
-  background-color: #1976d2;
-  color: #fff;
+.option-row.checked {
+  background: rgba(59, 130, 246, 0.1); /* Fondo azul muy suave al seleccionar */
+  border-color: var(--accent-blue);
+}
+
+/* Checkbox nativo estilizado con accent-color */
+.option-row input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  margin-right: 15px;
+  accent-color: var(--accent-blue); /* Hace que el check sea azul */
   cursor: pointer;
 }
 
-button:disabled {
+.option-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.option-text span {
+  color: var(--text-light);
+  font-weight: 600;
+}
+
+.option-text small {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  margin-top: 2px;
+}
+
+.risk-badge {
+  font-size: 1.2rem;
+}
+
+/* Botón Guardar */
+.btn-save {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-blue-hover) 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.btn-save:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.btn-save:disabled {
   opacity: 0.6;
-  cursor: default;
+  cursor: not-allowed;
+  filter: grayscale(0.5);
 }
 
-.msg {
-  margin-top: 8px;
+/* Mensajes */
+.alert {
+  margin-top: 20px;
+  padding: 12px;
+  border-radius: 8px;
   font-size: 0.9rem;
+  text-align: center;
 }
 
-.msg.ok {
-  color: #2e7d32;
+.success {
+  background: var(--risk-green-bg);
+  color: var(--risk-green);
+  border: 1px solid var(--risk-green);
 }
 
-.msg.error {
-  color: #d32f2f;
+.error {
+  background: var(--risk-red-bg);
+  color: var(--risk-red);
+  border: 1px solid var(--risk-red);
 }
+
+/* Loader */
+.loading-state {
+  text-align: center;
+  padding: 20px;
+  color: var(--text-muted);
+}
+.spinner {
+  width: 30px; height: 30px;
+  border: 3px solid var(--border-color);
+  border-top-color: var(--accent-blue);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 10px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }

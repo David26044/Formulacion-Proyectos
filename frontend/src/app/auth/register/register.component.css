@@ -1,57 +1,184 @@
-.auth-container {
-  max-width: 350px;
-  margin: 40px auto;
+/* register.component.css */
+
+/* 1. El Wrapper: Centra todo en la pantalla con el fondo degradado */
+.auth-wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
+  /* Fondo radial oscuro igual al Login */
+  background: radial-gradient(circle at center, var(--bg-secondary) 0%, var(--bg-primary) 100%);
 }
 
-.auth-container h2 {
+/* 2. La Tarjeta: El cuadro del formulario */
+.auth-card {
+  background-color: var(--bg-secondary);
+  width: 100%;
+  max-width: 400px; /* Un poco más ancho para que respire */
+  padding: 40px 30px;
+  border-radius: 16px;
+  box-shadow: var(--shadow-dark);
+  border: 1px solid var(--border-color);
+  
+  /* Animación suave al cargar */
+  animation: slideUp 0.5s ease-out;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 3. Encabezado (Icono y Títulos) */
+.auth-header {
   text-align: center;
+  margin-bottom: 30px;
 }
 
-.auth-container form div {
-  margin-bottom: 15px;
+.logo-icon {
+  font-size: 3rem;
+  margin-bottom: 10px;
+  /* Efecto de brillo sutil */
+  filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.5));
 }
 
-.auth-container label {
+.auth-header h2 {
+  margin: 0;
+  color: var(--text-light);
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.subtitle {
+  margin: 6px 0 0;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+/* 4. Formulario e Inputs */
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
   display: block;
-  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-weight: 500;
 }
 
-.auth-container input {
-  width: 100%;
-  padding: 8px;
-  box-sizing: border-box;
+/* Contenedor relativo para posicionar el icono dentro del input */
+.input-wrapper {
+  position: relative;
 }
 
-button {
+.input-icon {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.1rem;
+  opacity: 0.5;
+  pointer-events: none; /* Para que el click pase a través */
+}
+
+input {
   width: 100%;
-  padding: 10px;
-  background: #1976d2;
+  padding: 12px 45px 12px 16px; /* Espacio a la derecha para el icono */
+  background-color: var(--bg-primary); /* Input oscuro */
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  color: var(--text-light);
+  font-size: 1rem;
+  box-sizing: border-box; /* Importante para que el padding no rompa el ancho */
+  transition: all 0.2s ease;
+}
+
+input:focus {
+  outline: none;
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2); /* Resplandor azul */
+}
+
+input::placeholder {
+  color: #64748b;
+}
+
+/* 5. Botón Principal */
+.btn-submit {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-blue-hover) 100%);
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
   cursor: pointer;
+  margin-top: 10px;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
-button:hover {
-  background: #125ca1;
+.btn-submit:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(59, 130, 246, 0.3);
+}
+
+.btn-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  filter: grayscale(0.5);
+}
+
+/* 6. Mensajes de Alerta (Error y Éxito) */
+.alert {
+  padding: 12px;
+  border-radius: 8px;
+  margin-top: 15px;
+  font-size: 0.9rem;
+  text-align: center;
+  line-height: 1.4;
 }
 
 .error {
-  color: red;
-  margin-top: 10px;
+  background-color: var(--risk-red-bg);
+  color: var(--risk-red);
+  border: 1px solid var(--risk-red);
 }
 
 .success {
-  color: green;
-  margin-top: 10px;
+  background-color: var(--risk-green-bg);
+  color: var(--risk-green);
+  border: 1px solid var(--risk-green);
+}
+
+/* 7. Footer y Links */
+.auth-footer {
+  margin-top: 25px;
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--text-muted);
 }
 
 .link {
-  text-align: center;
-  margin-top: 10px;
-  color: #1976d2;
+  color: var(--accent-blue);
+  text-decoration: none;
+  font-weight: 600;
   cursor: pointer;
+  margin-left: 5px;
+  transition: color 0.2s;
+}
+
+.link:hover {
+  color: #93c5fd;
+  text-decoration: underline;
+}
+
+/* Ajuste para móviles */
+@media (max-width: 480px) {
+  .auth-card {
+    padding: 30px 20px;
+  }
 }

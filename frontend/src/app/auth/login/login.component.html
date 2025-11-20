@@ -1,23 +1,58 @@
-<div class="auth-container">
-  <h2>Iniciar sesión</h2>
-
-  <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
-    <div>
-      <label for="email">Correo electrónico</label>
-      <input type="email" id="email" name="email" ngModel required />
+<div class="auth-wrapper">
+  <div class="auth-card">
+    
+    <div class="auth-header">
+      <div class="logo-icon">💧</div>
+      <h2>Bienvenido</h2>
+      <p class="subtitle">Sistema de Monitoreo La Calera</p>
     </div>
 
-    <div>
-      <label for="password">Contraseña</label>
-      <input type="password" id="password" name="password" ngModel required />
+    <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
+      
+      <div class="form-group">
+        <label for="email">Correo electrónico</label>
+        <div class="input-wrapper">
+          <input 
+            type="email" 
+            id="email" 
+            name="email" 
+            ngModel 
+            required 
+            placeholder="usuario@ejemplo.com" 
+            #email="ngModel"
+          />
+          <span class="input-icon">✉️</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Contraseña</label>
+        <div class="input-wrapper">
+          <input 
+            type="password" 
+            id="password" 
+            name="password" 
+            ngModel 
+            required 
+            placeholder="••••••••"
+          />
+          <span class="input-icon">🔒</span>
+        </div>
+      </div>
+
+      <button type="submit" class="btn-submit" [disabled]="!loginForm.valid">
+        Iniciar Sesión
+      </button>
+    </form>
+
+    <div *ngIf="errorMessage" class="alert error">
+      {{ errorMessage }}
     </div>
 
-    <button type="submit">Entrar</button>
-  </form>
+    <div class="auth-footer">
+      <p>¿No tienes cuenta?</p>
+      <a (click)="goToRegister()" class="link">Regístrate aquí</a>
+    </div>
 
-  <div *ngIf="errorMessage" class="error">
-    {{ errorMessage }}
   </div>
-
-  <p class="link" (click)="goToRegister()">¿No tienes cuenta? Regístrate</p>
 </div>

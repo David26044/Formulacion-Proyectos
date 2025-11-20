@@ -1,38 +1,63 @@
-<div class="alerts-container">
-  <h2>Configuración de alertas</h2>
-
-  <div *ngIf="loading">Cargando configuración...</div>
-
-  <div *ngIf="!loading">
-    <div class="form-group">
-      <label for="email">Correo para recibir alertas</label>
-      <input
-        id="email"
-        type="email"
-        [(ngModel)]="config.email"
-        placeholder="tucorreo@ejemplo.com"
-      />
+<div class="alerts-wrapper">
+  <div class="alerts-card">
+    
+    <div class="card-header">
+      <div class="header-icon">🔔</div>
+      <h2>Configurar Alertas</h2>
+      <p class="subtitle">Recibe notificaciones sobre el estado del disipador</p>
     </div>
 
-    <div class="form-group checkbox-group">
-      <label>
-        <input type="checkbox" [(ngModel)]="config.notify_on_high" />
-        Recibir alerta cuando el riesgo sea <strong>ALTO</strong>
-      </label>
+    <div *ngIf="loading" class="loading-state">
+      <div class="spinner"></div>
+      <p>Cargando preferencias...</p>
     </div>
 
-    <div class="form-group checkbox-group">
-      <label>
-        <input type="checkbox" [(ngModel)]="config.notify_on_very_high" />
-        Recibir alerta cuando el riesgo sea <strong>MUY ALTO</strong>
-      </label>
+    <div *ngIf="!loading" class="form-content">
+      
+      <div class="form-group">
+        <label for="email">Correo electrónico de destino</label>
+        <div class="input-wrapper">
+          <input
+            id="email"
+            type="email"
+            [(ngModel)]="config.email"
+            placeholder="tucorreo@ejemplo.com"
+          />
+          <span class="input-icon">✉️</span>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <h3 class="section-label">Frecuencia de alertas</h3>
+
+      <div class="options-group">
+        <label class="option-row" [class.checked]="config.notify_on_high">
+          <input type="checkbox" [(ngModel)]="config.notify_on_high" />
+          <div class="option-text">
+            <span>Riesgo ALTO</span>
+            <small>Te avisaremos cuando la lluvia sea intensa.</small>
+          </div>
+          <span class="risk-badge alto">🟠</span>
+        </label>
+
+        <label class="option-row" [class.checked]="config.notify_on_very_high">
+          <input type="checkbox" [(ngModel)]="config.notify_on_very_high" />
+          <div class="option-text">
+            <span>Riesgo MUY ALTO</span>
+            <small>Aviso crítico por saturación o tormenta fuerte.</small>
+          </div>
+          <span class="risk-badge muy-alto">🔴</span>
+        </label>
+      </div>
+
+      <button class="btn-save" (click)="save()" [disabled]="saving">
+        {{ saving ? 'Guardando cambios...' : 'Guardar Configuración' }}
+      </button>
+
+      <div *ngIf="message" class="alert success">✅ {{ message }}</div>
+      <div *ngIf="error" class="alert error">❌ {{ error }}</div>
+
     </div>
-
-    <button (click)="save()" [disabled]="saving">
-      {{ saving ? 'Guardando...' : 'Guardar configuración' }}
-    </button>
-
-    <p class="msg ok" *ngIf="message">{{ message }}</p>
-    <p class="msg error" *ngIf="error">{{ error }}</p>
   </div>
 </div>
