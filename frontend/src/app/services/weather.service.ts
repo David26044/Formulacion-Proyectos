@@ -60,7 +60,7 @@ export interface ForecastHistoryResponse {
   providedIn: 'root'
 })
 export class WeatherService {
-  private apiUrl = 'http://localhost:5000/weather';
+  private apiUrl = 'https://formulacion-proyectos.onrender.com/weather';
 
   constructor(private http: HttpClient) {}
 

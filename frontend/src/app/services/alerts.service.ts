@@ -12,7 +12,7 @@ export interface AlertConfig {
   providedIn: 'root'
 })
 export class AlertsService {
-  private apiUrl = 'http://localhost:5000/alerts';
+  private apiUrl = 'https://formulacion-proyectos.onrender.com/alerts';
 
   constructor(private http: HttpClient) {}
 
