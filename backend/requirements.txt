@@ -6,4 +6,4 @@ flask-migrate
 requests
 python-dotenv
 psycopg2-binary
-Flask-Migrate
+gunicorn
