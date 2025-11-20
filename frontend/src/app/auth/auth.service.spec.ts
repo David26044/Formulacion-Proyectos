@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:5000/auth';
+  private apiUrl = 'https://formulacion-proyectos.onrender.com/auth';
 
   constructor(private http: HttpClient) {}
 
